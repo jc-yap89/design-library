@@ -8,6 +8,10 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 
 **AI 产品先定体验，界面实现先查再写。** 涉及 AI 助手、智能体或生成式界面时，先按任务选择下方相关的 AI Design Skills 主题；需要实现视觉界面时，再查本地组件索引，确认十一家里有没有合适方案。
 
+## 设计偏好
+
+设计任务开始时，按[偏好规则](references/preference-memory.md)读取适用的长期与当前项目偏好，再结合本次要求自主选方案。收到具体审美反馈后，主动按规则更新用户本机记录；首次反馈前不创建记录文件。
+
 十一站分四类，别混着比：
 
 - **大型动效组件库**：Aceternity UI、React Bits、Originkit —— 整段区块与复杂动效，React 代码。
