@@ -10,7 +10,7 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 
 ## 设计偏好
 
-设计任务开始时，按[偏好规则](references/preference-memory.md)读取适用的长期与当前项目偏好，再结合本次要求自主选方案。收到具体审美反馈后，主动按规则更新用户本机记录；首次反馈前不创建记录文件。
+设计任务开始时，按[偏好规则](references/preference-memory.md)读取适用偏好。实施前，将每项适用的明确偏好映射为少量可观察的设计决定与完成标准，并保留其强度和适用范围；完成后按真实渲染或行为证据逐项核验。收到具体审美反馈后，主动按规则更新本机记录；首次反馈前不创建记录文件。
 
 十一站分四类，别混着比：
 
