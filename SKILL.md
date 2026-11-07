@@ -1,6 +1,6 @@
 ---
 name: design-library
-description: "AI 产品、智能体体验和前端 UI 设计入口：按需使用 AI Design Skills 的交互、行为、安全、评估、编排与提示词设计主题；界面实现前检索 11 个开源组件库的 3,788 条候选；内置 UI 去 AI 感审计清单（紫渐变、发光、emoji 图标、空话文案等套路）。适用于新建或改造用户界面，不用于纯后端、文案或数据任务。"
+description: "AI 产品、智能体体验和前端 UI 设计入口：按需使用 AI Design Skills 的交互、行为、安全、评估、编排与提示词设计主题；界面实现前检索 11 个开源组件库的 3,788 条候选；取用组件时用去 AI 感判据把关（渐变、发光、emoji 图标、空话文案等套路）。适用于新建或改造用户界面，不用于纯后端、文案或数据任务。"
 tags: [design, frontend, ui, components, motion, reference, ai-product, agent-experience, uiverse, magicui, shadcn]
 ---
 
@@ -32,25 +32,7 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 | 智能体编排设计 | 多智能体角色、任务拆分、交接、人类介入、状态与故障恢复 | [7 项技能](https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/design-agent-orchestration)：`agent-role-design`、`failure-recovery`、`handoff-protocols`、`human-in-the-loop`、`observability-design`、`state-management`、`task-decomposition` |
 | 提示词架构 | 系统提示词、上下文工程、约束、示例、模板和版本管理 | [7 项技能](https://github.com/Owl-Listener/ai-design-skills/tree/main/skills/prompt-architecture)：`chain-of-thought-design`、`constraint-specification`、`context-engineering`、`few-shot-patterns`、`prompt-versioning`、`system-prompt-structure`、`template-design` |
 
-建议流程：先明确用户与模型分别能做什么、交互中的失败和风险如何处理、如何判断体验有效；涉及多智能体时补充角色与交接；涉及界面实现时，再用下方组件索引找可复用的视觉方案。上游仓库保留各技能的完整说明与命令。
-
-## UI 去 AI 感：审计清单与按需选择
-
-本技能内置了 [unslop](https://github.com/heydamir/unslop)（Damir Sokolovsky，CC BY 4.0）的精华改写版：[审计清单、方向五行、修改顺序、默认数值与交付检查](references/ui-anti-slop.md)。它与 design-taste-frontend、impeccable 并列，不取代任何一个；按任务状态选，不必三个都开。
-
-| 任务状态 | 怎么选 |
-|---|---|
-| 界面已存在，看起来像 AI 生成（紫渐变、发光、emoji 图标、大写标签、空话文案） | 先用[去 AI 感清单](references/ui-anti-slop.md)审计并按顺序修；修完若还需整体审美升级，再交 design-taste-frontend 或 impeccable |
-| 从零新建，还没有视觉方向 | 先由 design-taste-frontend 或 impeccable 定审美；实现后用清单的第六节"交付前检查"验收，防止落回套路 |
-| 新建，但用户已给出明确风格或品牌 | 按用户要求和偏好记录执行；清单只做验收，冲突处以用户为准 |
-| 只要代码级复用（按钮、开关、区块） | 直接走下方组件检索；套用组件后再用清单检查是否带入了套路（发光、渐变文字、`transition-all`） |
-| 清单看完仍不够（要线上页面抓取、生成首屏主图、导出"去 AI 感"演示视频） | 直接使用上游完整技能 [heydamir/unslop](https://github.com/heydamir/unslop)，本技能不含这些脚本 |
-
-选择原则：
-1. **用户明确偏好 > 清单默认值。** 清单是判断依据，不是禁令；有意保留的套路在汇报里注明。
-2. **先审计、后改动。** 只命中少数几条时按"轻度"处理，不重做；没命中就直接说没问题。
-3. **清单管"去掉什么、守住什么底线"，视觉方向交给审美技能。** 清单里的五行方向足以应对"只去套路"的任务；要更强的风格主张时再叫审美技能，避免两边各给一套方向互相打架。
-4. 与上方的"设计偏好"流程叠加使用：方向五行必须与已适用的偏好一致，完成时的核验把清单检查项和偏好完成标准合在一次渲染核验里做。
+建议流程：先明确用户与模型分别能做什么、交互中的失败和风险如何处理、如何判断体验有效；涉及多智能体时补充角色与交接；涉及界面实现时，再用下方组件索引找可复用的视觉方案；AI 产品的界面同样要过[去 AI 感判据](references/ui-anti-slop.md)（✨、渐变"AI"按钮、发光球之类只留在真正说明问题处）。上游仓库保留各技能的完整说明与命令。
 
 > 触发词唯一源：`.agents/skill-router/skill-triggers.json` 的 `design-library` 条目。SKILL.md 不再维护第二份。
 
@@ -59,14 +41,13 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 | 任务 | 本技能 | 之后交给 |
 |---|---|---|
 | AI 助手 / 智能体 / 生成式界面 | 选择相关 AI Design Skills 主题，梳理交互、行为、风险与评估；有界面时再查组件 | design-taste-frontend 或 impeccable 定视觉；需要产品流程时交 product-design:ideate |
-| 界面像 AI 生成 / 要去 AI 感 / 要"改得像设计过" | 用[去 AI 感清单](references/ui-anti-slop.md)审计并修复 | 需要更强风格主张时交 design-taste-frontend 或 impeccable；线上页抓取、主图生成、演示视频用上游 unslop |
-| 新建落地页 / 区块 | 查同类实现，定结构与动效参数 | design-taste-frontend 或 impeccable 定审美；完成后用去 AI 感清单验收 |
+| 新建落地页 / 区块 | 查同类实现，定结构与动效参数 | design-taste-frontend 或 impeccable 定审美 |
 | 加按钮 / 开关 / 加载 / 弹窗 | 查 Uiverse 与组件库 | shadcn 落地 |
-| 改造现有界面 | 找可替换的现成组件 | site-retrofit 主导前后对比 |
+| 改造现有界面 / 界面看起来像 AI 生成 | 找可替换的现成组件；按[去 AI 感判据](references/ui-anti-slop.md)审计出该换什么 | site-retrofit 主导前后对比；要更强风格主张交 design-taste-frontend 或 impeccable |
 | 选风格 / 配色 / 字体 | 不在范围 | ui-ux-pro-max |
 | 纯后端 / 文案 / 数据 | 不触发 | — |
 
-一句话：**本技能负责 AI 产品体验主题选型和"有没有现成的 UI 方案"。** 视觉方向交 design-taste-frontend / impeccable，组件落地交 shadcn，验收交 visual-regression-acceptance。
+一句话：**本技能负责 AI 产品体验主题选型和"有没有现成的 UI 方案"。** 视觉方向交 design-taste-frontend / impeccable，组件落地交 shadcn，验收交 visual-regression-acceptance。组件取来后、交付前，用[去 AI 感判据](references/ui-anti-slop.md)把关：它只回答"哪里是套路、怎么去掉"，不定风格。
 
 与 motionsites 的区别也在这：它给提示词，本技能给能装的代码和带缩略图的候选。
 
@@ -149,6 +130,7 @@ galaxy/Toggle-switches/Praashoo7_nasty-seahorse-26.html   ← 自包含 HTML + <
 1. 视觉是否匹配目标调性（暗色 SaaS、编辑感、 playful）。
 2. 参数是否可调（颜色、密度、速度、圆角）。
 3. 代码形态是否可落地（React 组件、纯 CSS、还是只能看）。
+4. 套路自检：对照[去 AI 感判据](references/ui-anti-slop.md)第三节，看它带入哪些套路（色相渐变、发光、`transition-all`、示例空话）。多数能在参数里改掉；改不掉、又说明不了产品的，换下一个。用户明确要这种效果就保留，并注明。
 
 不要只看名字下结论。`Card Stack` 可能是 3D 卡片堆，也可能只是列表。
 
@@ -160,7 +142,7 @@ galaxy/Toggle-switches/Praashoo7_nasty-seahorse-26.html   ← 自包含 HTML + <
 | 只借参数 | 抄动效曲线、时长、光晕强度 | 自己已有结构 |
 | 只借结构 | 照布局重写，不搬代码 | 授权不明或栈不匹配 |
 
-复用后必须改：品牌色、字体、圆角、文案、间距节奏。原样搬运会一眼看出是组件库。
+复用后必须改：品牌色、字体、圆角、文案、间距节奏。原样搬运会一眼看出是组件库。改完用判据第四节"交付前检查"核对一遍，尤其示例文案、色值和动效参数。
 
 ## 分工表
 

@@ -4,7 +4,7 @@ This package contains skill instructions, scripts, index metadata, source links,
 
 ## unslop (adapted text)
 
-`references/ui-anti-slop.md` is a translated and condensed adaptation of the skill instructions and reference files of unslop (https://github.com/heydamir/unslop) by Damir Sokolovsky (https://x.com/heydamir), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: translated into Chinese, reorganized, shortened, and extended with rules tying it to this skill's preference mechanism. The adaptation is not written or endorsed by the original author. unslop's scripts, example pages, and images are not included. Keep this credit in copies and adaptations.
+`references/ui-anti-slop.md` is a translated and condensed adaptation of the skill instructions and reference files of unslop (https://github.com/heydamir/unslop) by Damir Sokolovsky (https://x.com/heydamir), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Changes: translated into Chinese, reorganized, and heavily shortened (direction-setting, palette and type tables, hero scenes, and video tooling were left out); a section on screening catalog components and a link to this skill's preference mechanism were added. The adaptation is not written or endorsed by the original author. unslop's scripts, example pages, and images are not included. Keep this credit in copies and adaptations.
 
 ## Linked third-party material
 
