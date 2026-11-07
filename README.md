@@ -30,6 +30,8 @@ On design tasks, map each applicable explicit preference to a few task-specific 
 
 `references/ui-anti-slop.md` is a condensed Chinese adaptation of [heydamir/unslop](https://github.com/heydamir/unslop) (CC BY 4.0, by Damir Sokolovsky): a checklist of "AI-generated look" tells with fixes, used to screen components pulled from the catalog and to check the result before delivery. It does not set style direction; that stays with the other design skills. See `THIRD_PARTY_NOTICES.md` for attribution.
 
+The skill acts as a resident UI/UX designer: audit, record, optimize, reuse (`references/resident-designer.md`). It keeps project notes in `.design-library/` (a UI backlog and a snippet library) created on first use. An optional hook, `scripts/resident-hook.mjs` with the settings in `templates/hooks.settings.json` (Claude Code format), reminds the agent on session start and on UI-related prompts; it is read-only and fails silently.
+
 Optional build and screenshot scripts are included for maintainers. They may need network access, Git, and browser tooling. Rebuilding screenshots with `shoot-uiverse.mjs` or `shoot-docs.mjs` requires a dedicated CDP browser at `127.0.0.1:9222`. Local generated preview images under `data/covers/` are intentionally excluded from this public package.
 
 ZIP installation is manual: extract `design-library/` into the agent's skill directory.

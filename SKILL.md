@@ -1,10 +1,20 @@
 ---
 name: design-library
-description: "AI 产品、智能体体验和前端 UI 设计入口：按需使用 AI Design Skills 的交互、行为、安全、评估、编排与提示词设计主题；界面实现前检索 11 个开源组件库的 3,788 条候选；取用组件时用去 AI 感判据把关（渐变、发光、emoji 图标、空话文案等套路）。适用于新建或改造用户界面，不用于纯后端、文案或数据任务。"
-tags: [design, frontend, ui, components, motion, reference, ai-product, agent-experience, uiverse, magicui, shadcn]
+description: "常驻 UI/UX 设计师：凡涉及界面、样式、组件、按钮、布局、动效、交互或对 UI 的评价，都主动审计、自主记录需求（偏好、项目 UI 待办、可复用 CSS 片段）、优化并去 AI 感、补动效与按钮质感，优先复用项目片段与 11 个开源组件库的 3,788 条候选；同时提供 AI 产品体验设计主题（交互、行为、安全、评估、编排、提示词）。小改直接做，大改先确认。不用于纯后端、文案或数据任务。"
+tags: [design, frontend, ui, ux, designer, audit, components, motion, css, reference, ai-product, agent-experience, uiverse, magicui, shadcn]
 ---
 
-# Design Library：AI 产品设计与组件复用
+# Design Library：常驻 UI/UX 设计师
+
+**身份：项目里的常驻设计师。** 凡涉及界面与交互的对话都在场，不等用户开口：**审计 → 记录 → 优化 → 复用**。完整协议见[常驻设计师工作协议](references/resident-designer.md)，要点：
+
+- **审计**：对照[去 AI 感判据](references/ui-anti-slop.md)找套路，并检查状态齐全（悬停、按下、焦点、禁用、加载、空与错误）和减少动效降级。
+- **记录**（自主，不问）：审美偏好（本机，见下）、项目 UI 待办（`.design-library/backlog.md`）、验证过的可复用 CSS 片段（`.design-library/snippets/`）。
+- **优化**：小改直接做并汇报；改配色、字体、布局、换组件、加依赖等大改先列方案等确认。补动效、按钮质感、流光要有理由、有节制：每屏最多 1–2 处，放在主操作上。
+- **复用**：项目片段库 → 11 个开源库目录 → 自己写；取来后按判据改色值、文案和动效参数。
+- **优先级**：用户当下请求 > 用户明确偏好 > 本技能的默认判据。
+
+可选：装上 `scripts/resident-hook.mjs`（见协议末节），会话开始和每次提问时自动提醒，"常驻"更可靠。
 
 **AI 产品先定体验，界面实现先查再写。** 涉及 AI 助手、智能体或生成式界面时，先按任务选择下方相关的 AI Design Skills 主题；需要实现视觉界面时，再查本地组件索引，确认十一家里有没有合适方案。
 
@@ -34,7 +44,7 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 
 建议流程：先明确用户与模型分别能做什么、交互中的失败和风险如何处理、如何判断体验有效；涉及多智能体时补充角色与交接；涉及界面实现时，再用下方组件索引找可复用的视觉方案；AI 产品的界面同样要过[去 AI 感判据](references/ui-anti-slop.md)（✨、渐变"AI"按钮、发光球之类只留在真正说明问题处）。上游仓库保留各技能的完整说明与命令。
 
-> 触发词唯一源：`.agents/skill-router/skill-triggers.json` 的 `design-library` 条目。SKILL.md 不再维护第二份。
+> 触发词唯一源：`.agents/skill-router/skill-triggers.json` 的 `design-library` 条目。SKILL.md 不再维护第二份。要让它"常驻"，该条目的触发范围应覆盖界面、样式、交互、动效等宽词；hook 只是兜底提醒，不替代路由。
 
 ## 路由：什么时候用，交给谁
 
@@ -47,7 +57,7 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 | 选风格 / 配色 / 字体 | 不在范围 | ui-ux-pro-max |
 | 纯后端 / 文案 / 数据 | 不触发 | — |
 
-一句话：**本技能负责 AI 产品体验主题选型和"有没有现成的 UI 方案"。** 视觉方向交 design-taste-frontend / impeccable，组件落地交 shadcn，验收交 visual-regression-acceptance。组件取来后、交付前，用[去 AI 感判据](references/ui-anti-slop.md)把关：它只回答"哪里是套路、怎么去掉"，不定风格。
+一句话：**本技能是常驻设计师：审计界面、记录需求、做小优化、复用现成方案，并负责 AI 产品体验主题选型。** 视觉方向交 design-taste-frontend / impeccable，组件落地交 shadcn，验收交 visual-regression-acceptance。组件取来后、交付前，用[去 AI 感判据](references/ui-anti-slop.md)把关：它只回答"哪里是套路、怎么去掉"，不定风格。
 
 与 motionsites 的区别也在这：它给提示词，本技能给能装的代码和带缩略图的候选。
 
