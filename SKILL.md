@@ -1,6 +1,6 @@
 ---
 name: design-library
-description: "AI 产品、智能体体验和前端 UI 设计入口：按需使用 AI Design Skills 的交互、行为、安全、评估、编排与提示词设计主题；界面实现前检索 11 个开源组件库的 3,788 条候选。适用于新建或改造用户界面，不用于纯后端、文案或数据任务。"
+description: "AI 产品、智能体体验和前端 UI 设计入口：按需使用 AI Design Skills 的交互、行为、安全、评估、编排与提示词设计主题；界面实现前检索 11 个开源组件库的 3,788 条候选；内置 UI 去 AI 感审计清单（紫渐变、发光、emoji 图标、空话文案等套路）。适用于新建或改造用户界面，不用于纯后端、文案或数据任务。"
 tags: [design, frontend, ui, components, motion, reference, ai-product, agent-experience, uiverse, magicui, shadcn]
 ---
 
@@ -34,6 +34,24 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 
 建议流程：先明确用户与模型分别能做什么、交互中的失败和风险如何处理、如何判断体验有效；涉及多智能体时补充角色与交接；涉及界面实现时，再用下方组件索引找可复用的视觉方案。上游仓库保留各技能的完整说明与命令。
 
+## UI 去 AI 感：审计清单与按需选择
+
+本技能内置了 [unslop](https://github.com/heydamir/unslop)（Damir Sokolovsky，CC BY 4.0）的精华改写版：[审计清单、方向五行、修改顺序、默认数值与交付检查](references/ui-anti-slop.md)。它与 design-taste-frontend、impeccable 并列，不取代任何一个；按任务状态选，不必三个都开。
+
+| 任务状态 | 怎么选 |
+|---|---|
+| 界面已存在，看起来像 AI 生成（紫渐变、发光、emoji 图标、大写标签、空话文案） | 先用[去 AI 感清单](references/ui-anti-slop.md)审计并按顺序修；修完若还需整体审美升级，再交 design-taste-frontend 或 impeccable |
+| 从零新建，还没有视觉方向 | 先由 design-taste-frontend 或 impeccable 定审美；实现后用清单的第六节"交付前检查"验收，防止落回套路 |
+| 新建，但用户已给出明确风格或品牌 | 按用户要求和偏好记录执行；清单只做验收，冲突处以用户为准 |
+| 只要代码级复用（按钮、开关、区块） | 直接走下方组件检索；套用组件后再用清单检查是否带入了套路（发光、渐变文字、`transition-all`） |
+| 清单看完仍不够（要线上页面抓取、生成首屏主图、导出"去 AI 感"演示视频） | 直接使用上游完整技能 [heydamir/unslop](https://github.com/heydamir/unslop)，本技能不含这些脚本 |
+
+选择原则：
+1. **用户明确偏好 > 清单默认值。** 清单是判断依据，不是禁令；有意保留的套路在汇报里注明。
+2. **先审计、后改动。** 只命中少数几条时按"轻度"处理，不重做；没命中就直接说没问题。
+3. **清单管"去掉什么、守住什么底线"，视觉方向交给审美技能。** 清单里的五行方向足以应对"只去套路"的任务；要更强的风格主张时再叫审美技能，避免两边各给一套方向互相打架。
+4. 与上方的"设计偏好"流程叠加使用：方向五行必须与已适用的偏好一致，完成时的核验把清单检查项和偏好完成标准合在一次渲染核验里做。
+
 > 触发词唯一源：`.agents/skill-router/skill-triggers.json` 的 `design-library` 条目。SKILL.md 不再维护第二份。
 
 ## 路由：什么时候用，交给谁
@@ -41,7 +59,8 @@ tags: [design, frontend, ui, components, motion, reference, ai-product, agent-ex
 | 任务 | 本技能 | 之后交给 |
 |---|---|---|
 | AI 助手 / 智能体 / 生成式界面 | 选择相关 AI Design Skills 主题，梳理交互、行为、风险与评估；有界面时再查组件 | design-taste-frontend 或 impeccable 定视觉；需要产品流程时交 product-design:ideate |
-| 新建落地页 / 区块 | 查同类实现，定结构与动效参数 | design-taste-frontend 或 impeccable 定审美 |
+| 界面像 AI 生成 / 要去 AI 感 / 要"改得像设计过" | 用[去 AI 感清单](references/ui-anti-slop.md)审计并修复 | 需要更强风格主张时交 design-taste-frontend 或 impeccable；线上页抓取、主图生成、演示视频用上游 unslop |
+| 新建落地页 / 区块 | 查同类实现，定结构与动效参数 | design-taste-frontend 或 impeccable 定审美；完成后用去 AI 感清单验收 |
 | 加按钮 / 开关 / 加载 / 弹窗 | 查 Uiverse 与组件库 | shadcn 落地 |
 | 改造现有界面 | 找可替换的现成组件 | site-retrofit 主导前后对比 |
 | 选风格 / 配色 / 字体 | 不在范围 | ui-ux-pro-max |
