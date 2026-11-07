@@ -2,7 +2,7 @@
 // Visual contact sheet for a query: renders the top matches with their preview
 // images so you can judge style before opening any page.
 //
-// Usage: node gallery.mjs "glass card" [--site uiverse] [--limit 24] [--out file.html]
+// Usage: node gallery.mjs "glass card" [--site uiverse] [--limit 24] [--no-fx] [--out file.html]
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -23,7 +23,7 @@ const site = argOf('--site')
 const query = argv.filter((a, i) => !a.startsWith('--') && !['--limit', '--site', '--out'].includes(argv[i - 1])).join(' ').trim()
 
 if (!query) {
-  console.error('usage: node gallery.mjs "<query>" [--site <site>] [--limit N]')
+  console.error('usage: node gallery.mjs "<query>" [--site <site>] [--limit N] [--no-fx]')
   process.exit(2)
 }
 
@@ -32,6 +32,7 @@ if (!query) {
 const fetchLimit = Math.max(limit * 5, 60)
 const args = [path.join(HERE, 'find.mjs'), query, '--limit', String(fetchLimit), '--json']
 if (site) args.push('--site', site)
+if (has('--no-fx')) args.push('--no-fx')
 const raw = execFileSync(process.execPath, args, { encoding: 'utf8' })
 const { results } = JSON.parse(raw)
 
@@ -108,7 +109,7 @@ const cards = shown
       <div class="meta">
         <span class="site">${esc(SITE_LABEL[r.site] || r.site)}</span>
         <h3>${esc(r.name)}</h3>
-        <span class="cat">${esc(r.category)}</span>
+        <span class="cat">${esc(r.category)}</span>${r.fx && r.fx.length ? `<span class="fx" title="名称或标签含装饰效果词，取用前对照去 AI 感判据">fx · ${esc(r.fx.join(', '))}</span>` : ''}
       </div>
     </a>`
   })
@@ -136,6 +137,7 @@ const html = `<!doctype html>
   .site { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#7c7c8a; }
   h3 { margin:0; font-size:14px; font-weight:500; letter-spacing:-.01em; color:#f2f2f5; }
   .cat { font-size:11px; color:#5f5f6c; }
+  .fx { font-size:11px; color:#b08a3e; }
 </style></head>
 <body>
 <header><h1>design library</h1><span class="q">${esc(query)}</span><span class="n">${shown.length} 个候选 · ${withPreview} 个有预览</span></header>

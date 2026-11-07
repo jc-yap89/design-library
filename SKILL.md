@@ -116,6 +116,7 @@ shadcn 系四家是直接截文档页里的预览面板（用 `[class*=preview]`
 - 中文优先；结果不理想就换英文关键词（`glow`、`marquee`、`bento`）。
 - 词越短越稳：`card` 好过 `pricing card with glow shadow`。
 - 结果太杂时加 `--site` 收窄。
+- 结果行末的 `⚠ fx: glow, gradient` 表示名称或标签含装饰效果词（gradient、glow、neon、glass、liquid、aurora 等），只是提醒多看一眼，不是质量判断。加 `--no-fx` 可直接隐藏这类条目；`gallery.mjs` 同样支持，并在卡片上标出。用户明确要这类效果时不要用 `--no-fx`。
 - 要现成小零件直接 `--site uiverse`，别和大型动效组件混排。
 
 ### Uiverse 的特殊之处
@@ -140,7 +141,7 @@ galaxy/Toggle-switches/Praashoo7_nasty-seahorse-26.html   ← 自包含 HTML + <
 1. 视觉是否匹配目标调性（暗色 SaaS、编辑感、 playful）。
 2. 参数是否可调（颜色、密度、速度、圆角）。
 3. 代码形态是否可落地（React 组件、纯 CSS、还是只能看）。
-4. 套路自检：对照[去 AI 感判据](references/ui-anti-slop.md)第三节，看它带入哪些套路（色相渐变、发光、`transition-all`、示例空话）。多数能在参数里改掉；改不掉、又说明不了产品的，换下一个。用户明确要这种效果就保留，并注明。
+4. 套路自检（带 `⚠ fx` 标记的优先看）：对照[去 AI 感判据](references/ui-anti-slop.md)第三节，看它带入哪些套路（色相渐变、发光、`transition-all`、示例空话）。多数能在参数里改掉；改不掉、又说明不了产品的，换下一个。用户明确要这种效果就保留，并注明。
 
 不要只看名字下结论。`Card Stack` 可能是 3D 卡片堆，也可能只是列表。
 

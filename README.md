@@ -20,6 +20,7 @@ Run commands from the extracted skill directory:
 node scripts/find.mjs "价格卡片 光晕" --limit 8
 node scripts/find.mjs "torch" --site uiverse --json
 node scripts/gallery.mjs "hero" --limit 12
+node scripts/find.mjs "card" --no-fx   # hide entries tagged glow/gradient/neon/glass...
 ```
 
 Node.js 18 or later is recommended for the skill scripts. Search and gallery use Node.js built-ins; no npm install is required.

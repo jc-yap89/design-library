@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { fxWords } from './fx-tags.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
@@ -19,12 +20,13 @@ const flag = (name) => {
 };
 const has = (name) => argv.includes(name);
 const json = has('--json');
+const noFx = has('--no-fx');
 const limit = Number(flag('--limit') || 12);
 const siteFilter = flag('--site');
 const query = argv.filter((a, i) => !a.startsWith('--') && !['--limit', '--site'].includes(argv[i - 1])).join(' ').trim();
 
 if (!query) {
-  console.error('usage: node find.mjs "<what you need>" [--limit N] [--site aceternity|reactbits|originkit|motionsites|aura] [--json]');
+  console.error('usage: node find.mjs "<what you need>" [--limit N] [--site aceternity|reactbits|originkit|motionsites|aura] [--no-fx] [--json]');
   process.exit(2);
 }
 if (!fs.existsSync(CATALOG)) {
@@ -129,9 +131,9 @@ const scored = entries
   .filter((e) => !siteFilter || e.site === siteFilter)
   .map((e) => {
     const { s, coverage } = scoreOf(e, terms, phrase);
-    return { ...e, score: s, coverage };
+    return { ...e, score: s, coverage, fx: fxWords(e) };
   })
-  .filter((e) => e.score > 0)
+  .filter((e) => e.score > 0 && !(noFx && e.fx.length))
   .sort((a, b) => b.coverage - a.coverage || b.score - a.score || a.name.length - b.name.length);
 
 // Keep variants (Pricing 01..04) from crowding out other intents.
@@ -154,6 +156,7 @@ if (json) {
 if (!ranked.length) {
   console.log(`no match for "${query}" (terms: ${terms.join(', ')})`);
   console.log('try fewer words, or English keywords such as hero / pricing / cursor / shader');
+  if (noFx) console.log('(--no-fx is on: entries tagged glow/gradient/neon/glass... are hidden)');
   process.exit(0);
 }
 
@@ -175,6 +178,6 @@ console.log(`terms: ${terms.join(', ')}`);
 console.log(`index: ${entries.length} entries, built ${builtAt.slice(0, 10)}`);
 console.log('');
 for (const r of ranked) {
-  console.log(`${String(r.score).padStart(3)}  [${LABEL[r.site]}] ${r.name}  (${r.category})`);
+  console.log(`${String(r.score).padStart(3)}  [${LABEL[r.site]}] ${r.name}  (${r.category})${r.fx.length ? `  ⚠ fx: ${r.fx.join(', ')}` : ''}`);
   console.log(`     ${r.url}`);
 }
