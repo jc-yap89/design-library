@@ -1,0 +1,23 @@
+/* 种子片段：在演练页验证过，不代表适用于你的项目。使用前按 references/resident-designer.md 的"核验"重新核对（对比度、悬停 / 按下 / 焦点、减少动效），
+ * 通过后复制到项目的 .design-library/snippets/ 并登记 INDEX.md。
+ */
+/* interactive-row
+ * 用途：导航行、卡片等可交互元素的统一反馈：悬停过渡、按下缩放、焦点环、减少动效降级。
+ * 来源：自写（无第三方代码）。
+ * 许可核对：不适用。
+ * 做过的改动：无（原创）。
+ * 用到的变量：焦点环色 #8a7cff（对深色表面对比度 5.6:1），按需换成项目强调色的亮一档。
+ * 减少动效：prefers-reduced-motion 下关闭过渡与按下缩放。
+ * 演练页中的验证结果：悬停 0.15s、按下 matrix(0.98)、减少动效下 0s / 无变换、Tab 焦点环可见。
+ */
+.row, .card {
+  transition-property: color, background-color, border-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.row:active { transform: scale(0.98); }
+:focus-visible { outline: 2px solid #8a7cff; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .row, .card { transition: none; }
+  .row:active { transform: none; }
+}

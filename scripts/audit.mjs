@@ -36,8 +36,16 @@ if (!files.length) {
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B50}\u{2B06}]/gu
 const CHECKS = [
   ['emoji in markup', (line) => (line.match(EMOJI) || []).length],
-  ['hue gradients', (line) => (line.match(/(?:linear|radial|conic)-gradient|\bbg-gradient-|\bfrom-[a-z]+-\d{3}|gradient-text/g) || []).length],
-  ['glow / colored shadows', (line) => (line.match(/shadow-\[[^\]]*rgba\(\s*(?!0\s*,\s*0\s*,\s*0)[^\]]*\]|box-shadow:[^;]*rgba\(\s*(?!0\s*,\s*0\s*,\s*0)[^;]*|drop-shadow-\[/g) || []).length],
+  ['hue gradients', (line) => {
+    // Tailwind gradient classes always count; CSS gradients count only when they carry a real hue
+    // (hex, non-white/black rgb, or a named color). white/black/transparent washes do not.
+    let n = (line.match(/\bbg-gradient-|\bfrom-[a-z]+-\d{3}|gradient-text/g) || []).length
+    for (const g of line.match(/(?:linear|radial|conic)-gradient\([^;]*/g) || []) {
+      if (/#[0-9a-f]{3,8}\b|rgba?\(\s*(?!255\s*,\s*255\s*,\s*255\b|0\s*,\s*0\s*,\s*0\b)\d|\b(?:violet|purple|blue|indigo|pink|rose|fuchsia|cyan|teal|orange|red|green)\b/i.test(g)) n++
+    }
+    return n
+  }],
+  ['glow / colored shadows', (line) => (line.match(/shadow-\[[^\]]*rgba\(\s*(?!255\s*,\s*255\s*,\s*255\b|0\s*,\s*0\s*,\s*0\b)[^\]]*\]|box-shadow:[^;]*rgba\(\s*(?!255\s*,\s*255\s*,\s*255\b|0\s*,\s*0\s*,\s*0\b)[^;]*|drop-shadow-\[/g) || []).length],
   ['transition-all', (line) => (line.match(/transition-all|transition:\s*all\b/g) || []).length],
   ['hover scale on cards/buttons', (line) => (line.match(/hover:scale-/g) || []).length],
   ['looping pulse / ping', (line) => (line.match(/animate-(?:pulse|ping|bounce)/g) || []).length],
