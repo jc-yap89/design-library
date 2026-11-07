@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // Static slop audit for HTML / CSS / JSX / TSX / Vue / Svelte text, plus a contrast helper.
 // Usage:
-//   node audit.mjs <file> [<file> ...]       counts and line numbers for common AI-look tells
+//   node audit.mjs <file|dir> [...]          counts and line numbers for common AI-look tells (dirs are scanned recursively)
 //   node audit.mjs --contrast "#fff" "#6a58ee"   WCAG contrast ratio (text needs 4.5, non-text 3)
 // Counts are evidence for the audit, not a verdict: render the page before judging.
 import fs from 'node:fs'
+import path from 'node:path'
 
 const argv = process.argv.slice(2)
 
@@ -27,10 +28,38 @@ if (argv[0] === '--contrast') {
   process.exit(0)
 }
 
-const files = argv.filter((a) => !a.startsWith('--'))
-if (!files.length) {
-  console.error('usage: node audit.mjs <file> [<file> ...]  |  --contrast <fg> <bg>')
+const SCAN_EXT = new Set(['.html', '.htm', '.css', '.scss', '.less', '.jsx', '.tsx', '.js', '.ts', '.vue', '.svelte', '.astro', '.mdx'])
+const SKIP_DIR = new Set(['node_modules', '.git', 'dist', 'build', '.next', '.nuxt', 'coverage', '.design-library'])
+
+function collect(target, out) {
+  let stat
+  try {
+    stat = fs.statSync(target)
+  } catch {
+    console.error(`not found: ${target}`)
+    process.exitCode = 2
+    return
+  }
+  if (stat.isFile()) return void out.push(target)
+  for (const entry of fs.readdirSync(target, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (!SKIP_DIR.has(entry.name)) collect(path.join(target, entry.name), out)
+    } else if (SCAN_EXT.has(path.extname(entry.name).toLowerCase())) {
+      out.push(path.join(target, entry.name))
+    }
+  }
+}
+
+const targets = argv.filter((a) => !a.startsWith('--'))
+if (!targets.length) {
+  console.error('usage: node audit.mjs <file|dir> [...]  |  --contrast <fg> <bg>')
   process.exit(2)
+}
+const files = []
+for (const t of targets) collect(t, files)
+if (!files.length) {
+  console.error('no scannable files (html, css, scss, jsx, tsx, js, ts, vue, svelte, astro, mdx)')
+  process.exit(process.exitCode || 2)
 }
 
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B50}\u{2B06}]/gu

@@ -79,7 +79,7 @@
 
 ## 三、取用组件库时的套路来源
 
-这个技能的主要工作是"先查再复用"，而被检索的库本身是套路的主要来源，不是中立货架。本目录的粗略统计（名称或标签含 gradient、glow、neon、glass、liquid、aurora、spotlight、blob 等词）：3,788 条里约 434 条（11.5%），Uiverse 约 15%（291/1,956），Magic UI 约 14%，Originkit 约 8%，Aceternity 约 7%，Kokonut UI 约 4%。这只说明哪里需要多检查一眼，不代表质量差，也不代表用户不能要。
+这个技能的主要工作是"先查再复用"，而被检索的库本身是套路的主要来源，不是中立货架。本目录的粗略统计（名称或标签含 gradient、glow、neon、glass、liquid、aurora、spotlight、blob 等词）：3,788 条里约 441 条（11.6%），Uiverse 约 15%（291/1,956），Magic UI 约 14%，Originkit 约 8%，Aceternity 约 7%，Kokonut UI 约 4%。这只说明哪里需要多检查一眼，不代表质量差，也不代表用户不能要。
 
 | 常带入的东西 | 取用时怎么处理 |
 |---|---|
