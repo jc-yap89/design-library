@@ -1,0 +1,55 @@
+/* 种子片段：在演练页验证过，不代表适用于你的项目。使用前按 references/resident-designer.md 的"核验"重新核对（对比度、悬停 / 按下 / 焦点、减少动效），
+ * 通过后复制到项目的 .design-library/snippets/ 并登记 INDEX.md。
+ */
+/* shine-button
+ * 用途：页面唯一的主操作按钮：实色强调面 + 顶部内高光 + 一次性扫光。
+ * 来源：借 Magic UI「Shiny Button」的做法（扫光 + 1px 描边）（https://magicui.design/docs/components/shiny-button），
+ *       用纯 CSS 重写，未复制其源码（原实现依赖 motion、无限循环弹簧、全大写字距）。
+ * 许可核对：Magic UI 仓库为 MIT（2026-11-07 核对）；本片段为自写实现。
+ * 做过的改动：去掉无限循环（只在加载后扫 2 次，悬停再扫一次）；去掉全大写和字距；去掉发光悬停阴影；
+ *            扫光只动 transform，不动 background-position / mask；不加新依赖。
+ * 用到的变量：--btn-bg 强调色（白字对比度需 ≥ 4.5:1），--btn-bg-hover，--btn-shine 扫光色。
+ * 减少动效：prefers-reduced-motion 下不播扫光。
+ * 用法：<button class="row btn-primary">…</button>，同时依赖 interactive-row.css 的 .row（过渡、按下、焦点环）。
+ */
+.btn-primary {
+  --btn-bg: #6a58ee;
+  --btn-bg-hover: #7766f2;
+  --btn-shine: rgba(255, 255, 255, 0.28);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--btn-bg);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.btn-primary:hover { background: var(--btn-bg-hover); }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 0%, var(--btn-shine) 50%, transparent 100%);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+.btn-primary { z-index: 0; }
+.btn-primary::after { animation: btn-sweep 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1s 2 both; }
+.btn-primary:hover::after { animation: btn-sweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes btn-sweep {
+  from { transform: translateX(-120%) skewX(-18deg); }
+  to   { transform: translateX(380%) skewX(-18deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after, .btn-primary:hover::after { animation: none; opacity: 0; }
+}
