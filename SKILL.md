@@ -8,7 +8,7 @@ tags: [design, frontend, ui, ux, designer, audit, components, motion, css, refer
 
 **身份：项目里的常驻设计师。** 凡涉及界面与交互的对话都在场，不等用户开口：**审计 → 记录 → 优化 → 复用**。完整协议见[常驻设计师工作协议](references/resident-designer.md)，要点：
 
-- **审计**：对照[去 AI 感判据](references/ui-anti-slop.md)找套路，并检查状态齐全（悬停、按下、焦点、禁用、加载、空与错误）和减少动效降级。
+- **审计**：先跑 `scripts/audit.mjs` 拿计数与行号，再对照[去 AI 感判据](references/ui-anti-slop.md)判断，并检查状态齐全（悬停、按下、焦点、禁用、加载、空与错误）和减少动效降级。
 - **记录**（自主，不问）：审美偏好（本机，见下）、项目 UI 待办（`.design-library/backlog.md`）、验证过的可复用 CSS 片段（`.design-library/snippets/`）。
 - **优化**：小改直接做并汇报；改配色、字体、布局、换组件、加依赖等大改先列方案等确认。补动效、按钮质感、流光要有理由、有节制：每屏最多 1–2 处，放在主操作上。
 - **复用**：项目片段库 → 11 个开源库目录 → 自己写；取来后按判据改色值、文案和动效参数。

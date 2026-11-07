@@ -21,6 +21,8 @@ node scripts/find.mjs "价格卡片 光晕" --limit 8
 node scripts/find.mjs "torch" --site uiverse --json
 node scripts/gallery.mjs "hero" --limit 12
 node scripts/find.mjs "card" --no-fx   # hide entries tagged glow/gradient/neon/glass...
+node scripts/audit.mjs page.html            # AI-look tells: counts and line numbers
+node scripts/audit.mjs --contrast "#fff" "#6a58ee"   # WCAG contrast ratio
 ```
 
 Node.js 18 or later is recommended for the skill scripts. Search and gallery use Node.js built-ins; no npm install is required.
